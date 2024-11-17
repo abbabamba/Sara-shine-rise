@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Fond du logo -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8E44AD;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Cercle principal représentant le "Shine" -->
+  <circle cx="200" cy="150" r="80" fill="url(#gradient)" />
+  
+  <!-- Rayons représentant le "Rise" -->
+  <g transform="translate(200 150)">
+    <path d="M0,-100 L15,-85 L0,-90 L-15,-85 Z" fill="#FFD700" />
+    <path d="M70,-70 L85,-55 L75,-65 L65,-55 Z" fill="#FFD700" transform="rotate(45)" />
+    <path d="M70,-70 L85,-55 L75,-65 L65,-55 Z" fill="#FFD700" transform="rotate(90)" />
+    <path d="M70,-70 L85,-55 L75,-65 L65,-55 Z" fill="#FFD700" transform="rotate(135)" />
+    <path d="M70,-70 L85,-55 L75,-65 L65,-55 Z" fill="#FFD700" transform="rotate(180)" />
+    <path d="M70,-70 L85,-55 L75,-65 L65,-55 Z" fill="#FFD700" transform="rotate(225)" />
+    <path d="M70,-70 L85,-55 L75,-65 L65,-55 Z" fill="#FFD700" transform="rotate(270)" />
+    <path d="M70,-70 L85,-55 L75,-65 L65,-55 Z" fill="#FFD700" transform="rotate(315)" />
+  </g>
+  
+  <!-- Texte SARA -->
+  <text x="200" y="160" 
+        font-family="Arial, sans-serif" 
+        font-size="40" 
+        font-weight="bold" 
+        fill="white" 
+        text-anchor="middle">
+    SARA
+  </text>
+  
+  <!-- Sous-titre -->
+  <text x="200" y="185" 
+        font-family="Arial, sans-serif" 
+        font-size="14" 
+        fill="white" 
+        text-anchor="middle">
+    Shine And Rise Academy
+  </text>
+</svg>

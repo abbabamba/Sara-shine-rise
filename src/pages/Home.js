@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Alert, AlertDescription } from '../components/ui/alert';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Alert, AlertDescription } from "../components/ui/alert";
+import { ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
 
 const ImageCarousel = () => {
   const [currentImage, setCurrentImage] = useState(0);
-  
-  // Remplacez ces URLs par vos vraies images
+
   const images = [
     "/images/slide1.jpeg",
     "/images/slide2.jpeg",
-    "/images/slide3.jpeg"
+    "/images/slide3.jpeg",
   ];
 
   const nextImage = () => {
@@ -20,7 +19,6 @@ const ImageCarousel = () => {
     setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  // Auto-play
   useEffect(() => {
     const timer = setInterval(nextImage, 5000);
     return () => clearInterval(timer);
@@ -28,13 +26,12 @@ const ImageCarousel = () => {
 
   return (
     <div className="relative h-96 overflow-hidden">
-      {/* Images */}
       <div className="relative h-full w-full">
         {images.map((img, index) => (
           <div
             key={index}
             className={`absolute w-full h-full transition-opacity duration-500 ${
-              currentImage === index ? 'opacity-100' : 'opacity-0'
+              currentImage === index ? "opacity-100" : "opacity-0"
             }`}
           >
             <img
@@ -46,7 +43,6 @@ const ImageCarousel = () => {
         ))}
       </div>
 
-      {/* Navigation Buttons */}
       <button
         onClick={prevImage}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-full"
@@ -60,13 +56,12 @@ const ImageCarousel = () => {
         <ChevronRight size={24} />
       </button>
 
-      {/* Indicators */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {images.map((_, index) => (
           <button
             key={index}
             className={`w-3 h-3 rounded-full ${
-              currentImage === index ? 'bg-white' : 'bg-white/50'
+              currentImage === index ? "bg-white" : "bg-white/50"
             }`}
             onClick={() => setCurrentImage(index)}
           />
@@ -77,6 +72,7 @@ const ImageCarousel = () => {
 };
 
 const SaraWebsite = () => {
+  const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const [formData, setFormData] = useState({
     studentName: '',
     studentAge: '',
@@ -86,13 +82,11 @@ const SaraWebsite = () => {
     service: '',
     message: ''
   });
-  
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Formatage du message pour WhatsApp
+
     const message = `
 *Nouvelle inscription SARA Academy*
 📚 *Informations élève :*
@@ -111,38 +105,93 @@ ${formData.service}
 ${formData.message}
     `.trim();
 
-    // Numéro WhatsApp de l'entreprise (à remplacer par votre numéro)
-    const phoneNumber = '33600000000'; // Format : indicatif pays sans '+' suivi du numéro
-    
-    // Création du lien WhatsApp avec le message encodé
+    const phoneNumber = '33600000000';
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${+221786017545}&text=${encodeURIComponent(message)}`;
-    
-    // Ouverture de WhatsApp dans un nouvel onglet
+
     window.open(whatsappUrl, '_blank');
-    
     setIsSubmitted(true);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50">
       {/* Header */}
-      <header className="bg-white shadow-md">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
+      <header className="bg-white shadow-md sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-6 flex items-center justify-between">
+          <div className="flex items-center">
+            <img
+              src="/images/sara-logo.svg"
+              alt="Logo SARA Academy"
+              className="h-10 w-auto"
+            />
+            <div className="ml-3">
               <span className="text-3xl font-bold text-blue-600">SARA</span>
-              <span className="ml-2 text-sm text-purple-600">Shine And Rise Academy</span>
+              <span className="ml-2 text-sm text-purple-600">
+                Shine And Rise Academy
+              </span>
             </div>
-            <nav className="hidden md:flex space-x-6">
-              <a href="#services" className="text-gray-600 hover:text-blue-600">Nos Services</a>
-              <a href="#about" className="text-gray-600 hover:text-blue-600">À Propos</a>
-              <a href="#contact" className="text-gray-600 hover:text-blue-600">Contact</a>
-            </nav>
           </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-6">
+            <a href="#services" className="text-gray-600 hover:text-blue-600">
+              Nos Services
+            </a>
+            <a href="#about" className="text-gray-600 hover:text-blue-600">
+              À Propos
+            </a>
+            <a href="#contact" className="text-gray-600 hover:text-blue-600">
+              Contact
+            </a>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 text-gray-600"
+            onClick={() => setIsBurgerOpen(true)}
+          >
+            <Menu size={24} />
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {isBurgerOpen && (
+          <div className="fixed inset-0 bg-black/70 z-40 flex justify-end">
+            <div className="w-64 bg-white p-6">
+              <button
+                className="text-gray-600 mb-4"
+                onClick={() => setIsBurgerOpen(false)}
+              >
+                <X size={24} />
+              </button>
+              <nav className="flex flex-col space-y-4">
+                <a
+                  href="#services"
+                  className="text-gray-600 hover:text-blue-600"
+                  onClick={() => setIsBurgerOpen(false)}
+                >
+                  Nos Services
+                </a>
+                <a
+                  href="#about"
+                  className="text-gray-600 hover:text-blue-600"
+                  onClick={() => setIsBurgerOpen(false)}
+                >
+                  À Propos
+                </a>
+                <a
+                  href="#contact"
+                  className="text-gray-600 hover:text-blue-600"
+                  onClick={() => setIsBurgerOpen(false)}
+                >
+                  Contact
+                </a>
+              </nav>
+            </div>
+          </div>
+        )}
       </header>
 
-      {/* Carousel Banner */}
+      {/* Carousel */}
       <ImageCarousel />
 
       {/* Services Section */}
@@ -174,7 +223,7 @@ ${formData.message}
       <section id="contact" className="py-16">
         <div className="container mx-auto px-4 max-w-2xl">
           <h2 className="text-3xl font-bold text-center mb-12">Inscription</h2>
-          
+
           {isSubmitted ? (
             <Alert className="mb-8 bg-green-50 text-green-800 border border-green-200">
               <AlertDescription>
@@ -183,7 +232,6 @@ ${formData.message}
             </Alert>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-lg shadow-md">
-              {/* Form fields remain the same */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -301,12 +349,11 @@ ${formData.message}
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Contact</h3>
-              <p className="text-gray-400">Email: contact@sara-academy.fr</p>
-              <p className="text-gray-400">Tél: 01 23 45 67 89</p>
+              <p className="text-gray-400">Tél: 78 157 10 80</p>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Horaires</h3>
-              <p className="text-gray-400">Lun - Ven: 9h - 19h</p>
+              <p className="text-gray-400">Lun - Ven: 18h - 20h</p>
               <p className="text-gray-400">Sam: 9h - 17h</p>
             </div>
           </div>
